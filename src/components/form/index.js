@@ -15,14 +15,15 @@ export default function Form({ todos }) {
   const createTodo = () => {
     // todosの最後のIDに1を足したIDを新しいTODOのIDとする
     const lastElement = todos[todos.length - 1];
+    const date = new Date();
+    const today = `${date.getFullYear()}-${('0' + (date.getMonth() + 1)).slice(-2)}-${date.getDate()}`;
 
     axios
       .post("/api/todos", {
         id: lastElement.id + 1,
         todo: value.todo,
-        memo: value.memo
-      })
-      .then(res => {
+        memo: value.memo,
+        created_at: today,
       })
       .finally(() => {
         setValue("")
